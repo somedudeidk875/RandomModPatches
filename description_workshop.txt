@@ -6,7 +6,9 @@ Random Mod Patches is a mod (crazy) that fixes wasted work, memory leaks, and ge
 [*]Infernal Eclipse of Ragnarok (the main mod)
 [*]Mod of Redemption (some minor issues)
 [*]Homeward Journey (tries to fix some issues though larger issues cannot be fixed from this addon)
+[*]Inventory Items Visual Tweaks (ditto)
 [*]Calamity Simple Whip Addon (one really random issue)
+[/list]
 
 Patches should deactivate themselves if a mod updates and my mod can't detect the code it patches.
 
@@ -15,4 +17,4 @@ Feel free to implement the patches in your mod (it would be cool if you told me 
 
 [b]NONE OF THIS SHOULD AFFECT GAMEPLAY AND IF GAMEPLAY IS CHANGED IT SHOULD BE CONSIDERED A BUG AND REPORTED[/b]
 
-GitHub link: 
+GitHub link: https://github.com/somedudeidk875/RandomModPatches
