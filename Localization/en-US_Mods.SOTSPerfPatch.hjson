@@ -1,0 +1,247 @@
+Configs: {
+	PerfPatchConfig: {
+		DisplayName: Random Mod Patches
+
+		Headers: {
+			Profiler: Profiler
+			SecretsOfTheShadows: Secrets of the Shadows
+			WrathOfTheGods: Wrath of the Gods
+			InfernalEclipse: Infernal Eclipse of Ragnarok
+			Redemption: Mod of Redemption
+			HomewardJourney: Homeward Journey
+			InventoryVisualTweaks: Inventory Items Visual Tweaks
+			WhipAddon: Calamity Simple Whip Addon
+		}
+
+		EnableProfiler: {
+			Label: Enable profiler
+			Tooltip:
+				'''
+				Off by default.
+				While off, no profiling hooks are installed at all and the diagnostics cost nothing.
+				Turn this on and reload to use /sotsperf overlay and /sotsperf log.
+				The performance fixes work either way.
+				Don't turn this on unless you know what you are doing.
+				'''
+		}
+
+		GateWaterLayer: {
+			Label: Only render magic water layers when needed
+			Tooltip:
+				'''
+				SOTS renders four full-screen water layers every frame.
+				With this on, they only render while hydro servants, water sharks, hydro bubbles or water particles exist.
+				'''
+		}
+
+		SkipDuplicateNPCPass: {
+			Label: Run SOTS NPC effects once per frame
+			Tooltip:
+				'''
+				SOTS' extra NPC drawing ran in both of vanilla's NPC draw passes.
+				This keeps only the over-tiles pass.
+				'''
+		}
+
+		FixRenderTargetLeaks: {
+			Label: Free old render targets on resize
+			Tooltip: Stops video memory from leaking each time the window is resized or fullscreen is toggled.
+		}
+
+		FixShadeTextureLeaks: {
+			Label: Free darkness overlay textures
+			Tooltip:
+				'''
+				Certain NPCs rebuild a screen-sized texture without freeing the old one.
+				This frees it.
+				'''
+		}
+
+		ReduceTrailAllocations: {
+			Label: Allocation-free trail drawing
+			Tooltip:
+				'''
+				Replaces the per-frame list copies and LINQ in SOTS' trail manager with reused buffers.
+				Reduces stutter from garbage collection.
+				'''
+		}
+
+		SweepStuckTrails: {
+			Label: Remove finished trails that never cleaned up
+			Tooltip: Removes trails that are destroyed and have no points left but are still in the trail list.
+		}
+
+		DisposeTrailEffects: {
+			Label: Free trail GPU effects
+			Tooltip:
+				'''
+				Each SOTS trail creates a GPU effect that is never freed.
+				This frees it when the trail ends.
+				'''
+		}
+
+		EndOrphanPolarisTrails: {
+			Label: End leftover Polaris saber trails
+			Tooltip:
+				'''
+				A Polaris saber trail never ended if Polaris died or despawned with the saber out.
+				This ends it once Polaris is gone.
+				'''
+		}
+
+		GateDebuffProjectileLoop: {
+			Label: Skip DebuffNPC projectile scan when unused
+			Tooltip:
+				'''
+				Every NPC scanned all 1000 projectile slots every tick.
+				This skips the scan when none of the eight relevant SOTS projectiles exist.
+				'''
+		}
+
+		GateDebuffVineDraw: {
+			Label: Skip vine drawing scan when unused
+			Tooltip: Skips the per-NPC projectile scan for vine visuals when no vine projectiles exist and checks all projectile slots when they do.
+		}
+
+		SkipEmptyDebuffCounters: {
+			Label: Skip empty debuff counters
+			Tooltip: Skips SOTS' permanent-debuff counter drawing for NPCs that have no counters.
+		}
+
+		MeleeHitFastPath: {
+			Label: Melee hit fast path
+			Tooltip: Skips SOTS' melee-hit wrapper, which allocates and loops over all NPCs, unless the player has Zombie Hand equipped.
+		}
+
+		FastClosestPlayer: {
+			Label: Faster phase ore and hardlight tiles
+			Tooltip:
+				'''
+				These tiles searched all 255 player slots per tile per frame.
+				This searches only active players.
+				Mostly helps multiplayer.
+				'''
+		}
+
+		CleanupOnWorldExit: {
+			Label: Clear SOTS leftovers when leaving a world
+			Tooltip: Clears SOTS' global trail, water particle and camera lists, which otherwise carry over into the next world.
+		}
+
+		ThrottleSanctuarySteam: {
+			Label: Throttle Sanctuary steam
+			Tooltip: Uses the sample counts below instead of SOTS' and pauses steam while too many gores are active.
+		}
+
+		SteamSamples: {
+			Label: Steam samples per tick
+			Tooltip: SOTS default is 90.
+		}
+
+		SteamSamplesReduced: {
+			Label: Steam samples per tick (SOTS lag reduction on)
+			Tooltip:
+				'''
+				Used when SOTS' Sanctuary lag reduction or low fidelity mode is enabled.
+				SOTS default is 30.
+				'''
+		}
+
+		SteamGoreCap: {
+			Label: Pause steam above this many active gores
+			Tooltip: Terraria allows 600 gores at once.
+		}
+
+		SkipEmptyGenesisGrass: {
+			Label: Skip Genesis grass rendering when there is none on screen
+			Tooltip:
+				'''
+				Wrath of the Gods redraws its Genesis grass target every frame even with no grass in view.
+				This checks first and skips the work.
+				'''
+		}
+
+		FasterGenesisGrassNearest: {
+			Label: Faster nearest-grass search
+			Tooltip:
+				'''
+				Replaces a per-tile sort with a single pass.
+				Picks the same tile, just without the sorting cost.
+				'''
+		}
+
+		SkipIdleSnowScans: {
+			Label: Skip idle Rift Eclipse snow scans
+			Tooltip:
+				'''
+				The whole world is scanned for snow on a timer even when no eclipse is running.
+				This runs it only when snow can actually be placed or removed.
+				'''
+		}
+
+		CacheItemBalanceLookups: {
+			Label: IEOR item lookups
+			Tooltip:
+				'''
+				IEOR looks up over 700 items by name every time any item is created.
+				This resolves each name once and reuses it.
+				Biggest effect on chests, shops, Magic Storage, Recipe Browser and item tooltips.
+				'''
+		}
+
+		GateInfernalNPCPreAI: {
+			Label: Skip idle IEOR NPC checks
+			Tooltip:
+				'''
+				IEOR searched all 255 player slots for every NPC every tick, for checks that only apply to three specific NPCs.
+				This checks the NPC first.
+				'''
+		}
+
+		FixRedemptionTargetLeak: {
+			Label: Free Redemption's replaced render targets
+			Tooltip:
+				'''
+				Redemption replaces six screen-sized render targets without freeing the old ones, losing ~50 MB of video memory every time the resolution or window size changes.
+				This frees them.
+				'''
+		}
+
+		SkipIdleRedemptionLayers: {
+			Label: Skip idle Redemption effect layers
+			Tooltip:
+				'''
+				Redemption's three effect layers did render-target and sprite batch work every frame even with nothing queued, and twice per frame for the drawing half.
+				This skips it when all three are empty.
+				'''
+		}
+
+		CacheRitualChecks: {
+			Label: Cache Homeward Journey's per-tick NPC checks
+			Tooltip:
+				'''
+				Homeward Journey scanned all 200 NPC slots once per town NPC every tick, all of them turning up with the same answer, and looked Calamity up for every NPC every tick.
+				This does each once.
+				'''
+		}
+
+		SkipIdleParticleLayers: {
+			Label: Skip idle Visual Tweaks particle layers
+			Tooltip:
+				'''
+				Visual Tweaks' particle framework ends and restarts the sprite batch and rewrites both the scissor and rasterizer states ~28 times per frame, whether or not it has anything to draw.
+				This skips the six passes that can be skipped safely (and its per-tick update) while no particles exist.
+				'''
+		}
+
+		CacheWhipBuffImmunity: {
+			Label: Cache whip addon buff immunity list
+			Tooltip:
+				'''
+				The mod went through every buff in the game for every NPC every tick.
+				This modifies the logic to stop it from doing that.
+				Scales with both NPC count and how many mods you have.
+				'''
+		}
+	}
+}

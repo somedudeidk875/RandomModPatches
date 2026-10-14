@@ -1,0 +1,17 @@
+What started out as a way to practice hooks (and improve lag in my IEOR world) turned into this thing.
+Random Mod Patches is a mod (crazy) that fixes wasted work, memory leaks, and general FPS issues with the following mods:
+*Secrets of the Shadows (this one especially)
+*Calamity: Wrath of the Gods (not as bad as some people make it out to be)
+*Infernal Eclipse of Ragnarok (the main mod)
+*Mod of Redemption (some minor issues)
+*Homeward Journey (tries to fix some issues though larger issues cannot be fixed from this addon)
+*Calamity Simple Whip Addon (one really random issue)
+
+Patches should deactivate themselves if a mod updates and my mod can't detect the code it patches.
+
+NONE OF THIS SHOULD AFFECT GAMEPLAY AND IF GAMEPLAY IS CHANGED IT SHOULD BE CONSIDERED A BUG AND REPORTED
+
+To any mod authors whose mods this fixes:
+Feel free to implement the patches in your mod (it would be cool if you told me though!)
+
+GitHub link: 

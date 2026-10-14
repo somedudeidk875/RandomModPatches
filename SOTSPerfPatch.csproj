@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Import tModLoader mod properties -->
+  <Import Project="..\tModLoader.targets" />
+
+  <PropertyGroup>
+    <AssemblyName>SOTSPerfPatch</AssemblyName>
+    <RootNamespace>SOTSPerfPatch</RootNamespace>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <!--
+    SOTS reference.
+    This mod compiles against the real SOTS assembly. Two ways to provide it:
+      1. Put SOTS.dll in this project's lib/ folder, or pass -p:SOTSDllPath=path/to/SOTS.dll.
+      2. Use tModLoader's "Extract" option on SOTS, which writes
+         ModSources/ModAssemblies/SOTS_v<version>.dll. That file is picked up automatically.
+    The DLL is only a compile-time reference and is never packed into this mod.
+  -->
+  <PropertyGroup>
+    <SOTSDllPath Condition="'$(SOTSDllPath)' == '' And Exists('$(MSBuildProjectDirectory)/lib/SOTS.dll')">$(MSBuildProjectDirectory)/lib/SOTS.dll</SOTSDllPath>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(SOTSDllPath)' != ''">
+    <Reference Include="SOTS">
+      <HintPath>$(SOTSDllPath)</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(SOTSDllPath)' == ''">
+    <_SOTSExtractedDll Include="$(MSBuildProjectDirectory)/../ModAssemblies/SOTS_v*.dll" />
+    <Reference Include="@(_SOTSExtractedDll)" Private="false" />
+  </ItemGroup>
+
+  <!-- Same arrangement for Wrath of the Gods. Both mods are weak references: neither is required to play,
+       but both DLLs are needed to compile, because the patches are written against their real types. -->
+  <PropertyGroup>
+    <NoxusDllPath Condition="'$(NoxusDllPath)' == '' And Exists('$(MSBuildProjectDirectory)/lib/NoxusBoss.dll')">$(MSBuildProjectDirectory)/lib/NoxusBoss.dll</NoxusDllPath>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(NoxusDllPath)' != ''">
+    <Reference Include="NoxusBoss">
+      <HintPath>$(NoxusDllPath)</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(NoxusDllPath)' == ''">
+    <_NoxusExtractedDll Include="$(MSBuildProjectDirectory)/../ModAssemblies/NoxusBoss_v*.dll" />
+    <Reference Include="@(_NoxusExtractedDll)" Private="false" />
+  </ItemGroup>
+
+  <Target Name="CheckNoxusReference" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="'$(NoxusDllPath)' == '' And '@(_NoxusExtractedDll)' == ''"
+           Text="NoxusBoss.dll not found. Extract Wrath of the Gods in tModLoader (it writes ModSources/ModAssemblies/NoxusBoss_v*.dll), or copy NoxusBoss.dll into lib/. See README.md." />
+  </Target>
+
+  <Target Name="CheckSOTSReference" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="'$(SOTSDllPath)' == '' And '@(_SOTSExtractedDll)' == ''"
+           Text="SOTS.dll not found. Extract SOTS in tModLoader (it writes ModSources/ModAssemblies/SOTS_v*.dll), or copy SOTS.dll into lib/. See README.md." />
+    <Error Condition="'$(SOTSDllPath)' == '' And '@(_SOTSExtractedDll->Count())' &gt; 1"
+           Text="Several SOTS_v*.dll files found in ModSources/ModAssemblies. Delete the old ones or copy the current one to lib/SOTS.dll." />
+  </Target>
+
+</Project>
