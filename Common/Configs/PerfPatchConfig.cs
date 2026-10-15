@@ -109,4 +109,8 @@ public class PerfPatchConfig : ModConfig
 	[Header("WhipAddon")]
 	[DefaultValue(true)]
 	public bool CacheWhipBuffImmunity;
+
+	[Header("VanillaCalamityMusic")]
+	[DefaultValue(true)]
+	public bool SkipAbsentNPCScans;
 }

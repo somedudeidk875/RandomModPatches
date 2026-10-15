@@ -3,14 +3,17 @@ Random Mod Patches is a mod (crazy) that fixes wasted work, memory leaks, and ge
 [list]
 [*]Secrets of the Shadows (this one especially)
 [*]Calamity: Wrath of the Gods (not as bad as some people make it out to be)
-[*]Infernal Eclipse of Ragnarok (the main mod)
+[*]Infernal Eclipse of Ragnarok (the main mod, not the entire modpack itself)
 [*]Mod of Redemption (some minor issues)
 [*]Homeward Journey (tries to fix some issues though larger issues cannot be fixed from this addon)
 [*]Inventory Items Visual Tweaks (ditto)
 [*]Calamity Simple Whip Addon (one really random issue)
+[*]Vanilla Calamity Mod Music (nobody ever expects the music mod)
 [/list]
 
-Patches should deactivate themselves if a mod updates and my mod can't detect the code it patches.
+Patches should deactivate themselves if a mod updates and my mod can't detect the code it patches. This mod has been tested with a world running the modpack above this description and I haven't seen any issues so it should be fine. (hopefully (maybe))
+
+You may not see large FPS increases but you should notice that memory degradation  has been reduced a lot. (no more restarting TModLoader every 20 minutes!)
 
 To any mod authors whose mods this fixes:
 Feel free to implement the patches in your mod (it would be cool if you told me though!)

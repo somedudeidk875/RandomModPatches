@@ -10,6 +10,7 @@ using SOTSPerfPatch.Patches.Redemption;
 using SOTSPerfPatch.Patches.SOTS.Rendering;
 using SOTSPerfPatch.Patches.SOTS.Tiles;
 using SOTSPerfPatch.Patches.SOTS.Trails;
+using SOTSPerfPatch.Patches.UnCalamityModMusic;
 using SOTSPerfPatch.Patches.WhipAddon;
 using SOTSPerfPatch.Patches.SOTS.World;
 using Terraria;
@@ -73,6 +74,9 @@ internal static class PatchRegistry
 
 		//inventory visual tweaks
 		new SkipIdleParticleLayersPatch(),
+
+		//VCMM
+		new SkipAbsentNPCScansPatch(),
 	};
 
 	public static void ApplyAll(Mod mod)
@@ -115,6 +119,7 @@ internal static class PatchRegistry
 		CacheRitualChecksPatch.Reset();
 		SkipIdleParticleLayersPatch.Reset();
 		CacheBuffImmunityPatch.Reset();
+		SkipAbsentNPCScansPatch.Reset();
 		patches.Clear();
 	}
 }

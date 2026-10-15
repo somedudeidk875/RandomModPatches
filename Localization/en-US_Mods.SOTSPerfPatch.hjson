@@ -11,6 +11,7 @@ Configs: {
 			HomewardJourney: Homeward Journey
 			InventoryVisualTweaks: Inventory Items Visual Tweaks
 			WhipAddon: Calamity Simple Whip Addon
+			VanillaCalamityMusic: Vanilla Calamity Mod Music
 		}
 
 		EnableProfiler: {
@@ -241,6 +242,15 @@ Configs: {
 				The mod went through every buff in the game for every NPC every tick.
 				This modifies the logic to stop it from doing that.
 				Scales with both NPC count and how many mods you have.
+				'''
+		}
+
+		SkipAbsentNPCScans: {
+			Label: Skip music checks for NPCs that are not in the world
+			Tooltip:
+				'''
+				VCMM walks all 200 NPC slots twice for every NPC type it asks about, and it asks ~100 of them every tick.
+				This checks once per tick which types are in the world at all and drops the rest. (which in a world with no invasion and no boss is all of them)
 				'''
 		}
 	}

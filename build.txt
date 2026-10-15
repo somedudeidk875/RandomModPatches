@@ -1,6 +1,6 @@
 displayName = Random Mod Patches
 author = SOTSPerfPatch contributors
-version = 0.2
-weakReferences = SOTS, NoxusBoss, InfernalEclipseAPI, CalamitySimpleWhipAddon, Redemption, ContinentOfJourney, InventoryVisualTweaks
+version = 0.3
+weakReferences = SOTS, NoxusBoss, InfernalEclipseAPI, CalamitySimpleWhipAddon, Redemption, ContinentOfJourney, InventoryVisualTweaks, UnCalamityModMusic
 side = NoSync
 buildIgnore = lib/*, *.md, Properties/*
