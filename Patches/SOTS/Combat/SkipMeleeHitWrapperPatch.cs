@@ -18,6 +18,7 @@ internal sealed class SkipMeleeHitWrapperPatch : PerfPatch
 
 	public override void Apply() => Hooks.Install();
 
+	[JITWhenModsEnabled("SOTS")]
 	private static class Hooks
 	{
 		private delegate void orig_SotsMeleeHitNPCs(On_Player.orig_ItemCheck_MeleeHitNPCs orig, Player self, Item sItem, Rectangle itemRectangle, int originalDamage, float knockBack);

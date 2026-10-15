@@ -1,4 +1,5 @@
 using System;
+using Terraria.ModLoader;
 using SOTSPerfPatch.Patches.SOTS.Rendering;
 using SOTSPerfPatch.Patches.SOTS.Trails;
 
@@ -18,6 +19,7 @@ internal static class SOTSStateProbe
 		}
 	}
 
+	[JITWhenModsEnabled("SOTS")]
 	private static string Read()
 	{
 		int trails = global::SOTS.SOTS.primitives?._trails?.Count ?? -1;

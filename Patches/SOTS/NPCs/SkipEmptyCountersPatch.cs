@@ -17,6 +17,7 @@ internal sealed class SkipEmptyCountersPatch : PerfPatch
 
 	public override void Apply() => Hooks.Install();
 
+	[JITWhenModsEnabled("SOTS")]
 	private static class Hooks
 	{
 		private delegate void orig_PostDraw(DebuffNPC self, NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor);

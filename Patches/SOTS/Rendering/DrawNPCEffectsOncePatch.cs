@@ -18,6 +18,7 @@ internal sealed class DrawNPCEffectsOncePatch : PerfPatch
 
 	public override void Apply() => Hooks.Install();
 
+	[JITWhenModsEnabled("SOTS")]
 	private static class Hooks
 	{
 		private delegate void orig_SotsDrawNPCs(On_Main.orig_DrawNPCs orig, Main self, bool behindTiles);

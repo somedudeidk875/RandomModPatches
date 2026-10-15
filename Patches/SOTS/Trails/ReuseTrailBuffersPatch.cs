@@ -19,6 +19,7 @@ internal sealed class ReuseTrailBuffersPatch : PerfPatch
 
 	public override void Apply() => Hooks.Install();
 
+	[JITWhenModsEnabled("SOTS")]
 	private static class Hooks
 	{
 		private delegate void orig_DrawTrails(PrimTrailManager self, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice);

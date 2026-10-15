@@ -22,6 +22,7 @@ internal sealed class SkipDebuffProjectileScanPatch : PerfPatch
 
 	public override void Apply() => Hooks.Install();
 
+	[JITWhenModsEnabled("SOTS")]
 	private static class Hooks
 	{
 		public static void Install()

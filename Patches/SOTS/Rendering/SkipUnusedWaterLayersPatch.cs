@@ -20,6 +20,7 @@ internal sealed class SkipUnusedWaterLayersPatch : PerfPatch
 
 	public override void Apply() => Hooks.Install();
 
+	[JITWhenModsEnabled("SOTS")]
 	private static class Hooks
 	{
 		private delegate void orig_SetupGreenscreens(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice);

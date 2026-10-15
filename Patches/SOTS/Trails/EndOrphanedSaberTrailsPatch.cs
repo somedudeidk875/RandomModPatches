@@ -20,6 +20,7 @@ internal sealed class EndOrphanedSaberTrailsPatch : PerfPatch
 
 	public override void Apply() => Hooks.Install();
 
+	[JITWhenModsEnabled("SOTS")]
 	private static class Hooks
 	{
 		private const string SaberTrailTypeName = "SOTS.Prim.Trails.PolarisSaberTrail";

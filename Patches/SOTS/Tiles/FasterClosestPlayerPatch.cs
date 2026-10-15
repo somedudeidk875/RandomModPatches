@@ -20,6 +20,7 @@ internal sealed class FasterClosestPlayerPatch : PerfPatch
 
 	public override void Apply() => Hooks.Install();
 
+	[JITWhenModsEnabled("SOTS")]
 	private static class Hooks
 	{
 		private delegate int orig_ClosestPlayer(int i, int j, ref float minDist);

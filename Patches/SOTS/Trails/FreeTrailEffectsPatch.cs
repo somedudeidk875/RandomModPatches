@@ -16,6 +16,7 @@ internal sealed class FreeTrailEffectsPatch : PerfPatch
 
 	public override void Apply() => Hooks.Install();
 
+	[JITWhenModsEnabled("SOTS")]
 	private static class Hooks
 	{
 		private delegate void orig_Dispose(PrimTrail self);

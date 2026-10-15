@@ -18,6 +18,7 @@ internal sealed class FreeResizedTargetsPatch : PerfPatch
 
 	public override void Apply() => Hooks.Install();
 
+	[JITWhenModsEnabled("SOTS")]
 	private static class Hooks
 	{
 		private delegate void orig_ResizeTargets();
@@ -43,7 +44,7 @@ internal sealed class FreeResizedTargetsPatch : PerfPatch
 			if (old == null || !Enabled)
 				return;
 
-			Main.QueueMainThreadAction(() => DisposeIfReplaced(old, SOTSDetours.TargetProj));
+			Main.QueueMainThreadAction(() => DisposeIfReplacedByCurrent(old));
 		}
 
 		private static void OnLoadContent(orig_LoadContent orig, PrimTrailManager self, GraphicsDevice graphicsDevice)
@@ -58,6 +59,11 @@ internal sealed class FreeResizedTargetsPatch : PerfPatch
 			DisposeIfReplaced(oldNpc, self.primTargetNPC);
 			DisposeIfReplaced(oldProjectile, self.primTargetProjectile);
 		}
+
+		//the SOTS lookup sits here instead of in the lambda above because a lambda compiles into its own
+		//hidden class that the attribute on hooks does not reach
+		private static void DisposeIfReplacedByCurrent(RenderTarget2D old)
+			=> DisposeIfReplaced(old, SOTSDetours.TargetProj);
 
 		private static void DisposeIfReplaced(RenderTarget2D old, RenderTarget2D current)
 		{

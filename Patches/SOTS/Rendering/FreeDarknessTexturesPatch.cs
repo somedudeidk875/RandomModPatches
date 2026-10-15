@@ -32,6 +32,7 @@ internal sealed class FreeDarknessTexturesPatch : PerfPatch
 
 	internal static void OnUpdate() => Hooks.Tick();
 
+	[JITWhenModsEnabled("SOTS")]
 	private static class Hooks
 	{
 		private delegate bool orig_PreDraw(ModProjectile self, ref Color lightColor);

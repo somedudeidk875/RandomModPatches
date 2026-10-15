@@ -3,6 +3,7 @@ using SOTS.Prim;
 using SOTSPerfPatch.Common.Configs;
 using SOTSPerfPatch.Core;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace SOTSPerfPatch.Patches.SOTS.World;
 
@@ -34,6 +35,7 @@ internal sealed class ClearListsOnWorldExitPatch : PerfPatch
 		Hooks.Clear();
 	}
 
+	[JITWhenModsEnabled("SOTS")]
 	private static class Hooks
 	{
 		//touch every member once at load so a missing one fails this patch instead of world unload
