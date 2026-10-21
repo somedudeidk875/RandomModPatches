@@ -10,8 +10,8 @@ using SOTSPerfPatch.Patches.Redemption;
 using SOTSPerfPatch.Patches.SOTS.Rendering;
 using SOTSPerfPatch.Patches.SOTS.Tiles;
 using SOTSPerfPatch.Patches.SOTS.Trails;
+using SOTSPerfPatch.Patches.TerrariaOverhaul;
 using SOTSPerfPatch.Patches.UnCalamityModMusic;
-using SOTSPerfPatch.Patches.WhipAddon;
 using SOTSPerfPatch.Patches.SOTS.World;
 using Terraria;
 using Terraria.ModLoader;
@@ -62,9 +62,6 @@ internal static class PatchRegistry
 		new CacheItemLookupsPatch(),
 		new SkipIdleNPCPreAIPatch(),
 
-		//cal simple whip addon
-		new CacheBuffImmunityPatch(),
-
 		//MoR
 		new FreeReplacedTargetsPatch(),
 		new SkipIdleEffectLayersPatch(),
@@ -77,6 +74,10 @@ internal static class PatchRegistry
 
 		//VCMM
 		new SkipAbsentNPCScansPatch(),
+
+		//terraria overhaul
+		new FreeDistantChunkTexturesPatch(),
+		new SkipGorelessProjectileScansPatch(),
 	};
 
 	public static void ApplyAll(Mod mod)
@@ -118,8 +119,9 @@ internal static class PatchRegistry
 		CacheItemLookupsPatch.Reset();
 		CacheRitualChecksPatch.Reset();
 		SkipIdleParticleLayersPatch.Reset();
-		CacheBuffImmunityPatch.Reset();
 		SkipAbsentNPCScansPatch.Reset();
+		FreeDistantChunkTexturesPatch.Reset();
+		SkipGorelessProjectileScansPatch.Reset();
 		patches.Clear();
 	}
 }

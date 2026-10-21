@@ -61,7 +61,7 @@ internal sealed class FreeResizedTargetsPatch : PerfPatch
 		}
 
 		//the SOTS lookup sits here instead of in the lambda above because a lambda compiles into its own
-		//hidden class that the attribute on hooks does not reach
+		//hidden class that the attribute on Hooks does not reach
 		private static void DisposeIfReplacedByCurrent(RenderTarget2D old)
 			=> DisposeIfReplaced(old, SOTSDetours.TargetProj);
 

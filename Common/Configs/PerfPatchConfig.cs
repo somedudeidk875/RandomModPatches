@@ -106,11 +106,18 @@ public class PerfPatchConfig : ModConfig
 	[DefaultValue(true)]
 	public bool SkipIdleParticleLayers;
 
-	[Header("WhipAddon")]
-	[DefaultValue(true)]
-	public bool CacheWhipBuffImmunity;
-
 	[Header("VanillaCalamityMusic")]
 	[DefaultValue(true)]
 	public bool SkipAbsentNPCScans;
+
+	[Header("TerrariaOverhaul")]
+	[DefaultValue(true)]
+	public bool FreeDistantChunkTextures;
+
+	[DefaultValue(192)]
+	[Range(128, 1024)]
+	public int ChunkTextureBudget;
+
+	[DefaultValue(true)]
+	public bool SkipGorelessProjectileScans;
 }

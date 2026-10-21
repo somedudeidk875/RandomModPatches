@@ -4,6 +4,7 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SOTSPerfPatch.Patches.Redemption;
+using SOTSPerfPatch.Patches.TerrariaOverhaul;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
@@ -557,6 +558,7 @@ internal static class PerfDiagnostics
 		report.GraphicsBreakdown = GraphicsResourceProbe.Breakdown;
 		report.ProcessMb = GraphicsResourceProbe.ProcessMb;
 		report.RedemptionTargetsFreed = FreeReplacedTargetsPatch.TargetsFreed;
+		report.OverhaulChunksFreed = FreeDistantChunkTexturesPatch.ChunksFreed;
 
 		report.EffectState = EffectStateProbe.Describe();
 		report.ActiveFilters = EffectStateProbe.ActiveFilters;

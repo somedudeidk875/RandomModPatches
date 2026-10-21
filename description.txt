@@ -5,9 +5,9 @@ Random Mod Patches is a mod (crazy) that fixes wasted work, memory leaks, and ge
 *Infernal Eclipse of Ragnarok (the main mod, not the entire modpack itself)
 *Mod of Redemption (some minor issues)
 *Homeward Journey (tries to fix some issues though larger issues cannot be fixed from this addon)
-*Inventory Items Visual Tweaks (ditto)
-*Calamity Simple Whip Addon (one really random issue)
+*I̶n̶v̶e̶n̶t̶o̶r̶y̶ I̶t̶e̶m̶s̶ V̶i̶s̶u̶a̶l̶ T̶w̶e̶a̶k̶s̶ (̶d̶i̶t̶t̶o̶)̶  fixed in main mod
 *Vanilla Calamity Mod Music (nobody ever expects the music mod)
+*Terraria Overhaul (i think once steam version catches up to GitHub version this should be better)
 
 Patches should deactivate themselves if a mod updates and my mod can't detect the code it patches. This mod has been tested with a world running the modpack above this description and I haven't seen any issues so it should be fine. (hopefully (maybe))
 

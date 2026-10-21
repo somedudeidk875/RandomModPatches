@@ -10,8 +10,8 @@ Configs: {
 			Redemption: Mod of Redemption
 			HomewardJourney: Homeward Journey
 			InventoryVisualTweaks: Inventory Items Visual Tweaks
-			WhipAddon: Calamity Simple Whip Addon
 			VanillaCalamityMusic: Vanilla Calamity Mod Music
+			TerrariaOverhaul: Terraria Overhaul
 		}
 
 		EnableProfiler: {
@@ -235,22 +235,41 @@ Configs: {
 				'''
 		}
 
-		CacheWhipBuffImmunity: {
-			Label: Cache whip addon buff immunity list
-			Tooltip:
-				'''
-				The mod went through every buff in the game for every NPC every tick.
-				This modifies the logic to stop it from doing that.
-				Scales with both NPC count and how many mods you have.
-				'''
-		}
-
 		SkipAbsentNPCScans: {
 			Label: Skip music checks for NPCs that are not in the world
 			Tooltip:
 				'''
 				VCMM walks all 200 NPC slots twice for every NPC type it asks about, and it asks ~100 of them every tick.
 				This checks once per tick which types are in the world at all and drops the rest. (which in a world with no invasion and no boss is all of them)
+				'''
+		}
+
+		FreeDistantChunkTextures: {
+			Label: Free Overhaul's distant decal textures
+			Tooltip:
+				'''
+				Overhaul gives every 64x64 tile area you bleed in ~1 MB of video memory and never gives it back, not even when you leave the world.
+				Once you are over the budget, the areas furthest from you are released. 
+				Blood near you is never touched.
+				'''
+		}
+
+		ChunkTextureBudget: {
+			Label: Decal memory budget (areas kept)
+			Tooltip:
+				'''
+				Each one is ~1 MB, so 192 is ~200 MB. 
+				Below this nothing is ever released.
+				'''
+		}
+
+		SkipGorelessProjectileScans: {
+			Label: Skip Overhaul's gore scans when there is no gore
+			Tooltip:
+				'''
+				Every projectile checks all 600 gore slots every tick, even with no gore in the world.
+				This checks once per tick for everyone instead. 
+				Helps while exploring.
 				'''
 		}
 	}

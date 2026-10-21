@@ -40,6 +40,7 @@ internal sealed class Report
 	public double ProcessMb;
 	public string GraphicsBreakdown = string.Empty;
 	public int RedemptionTargetsFreed;
+	public int OverhaulChunksFreed;
 	public int InstrumentedModMethods;
 	public bool DeepHooksInstalled;
 	public List<ModCost> TopMods = new();
@@ -106,7 +107,8 @@ internal sealed class Report
 		lines.Add($"Graphics: {GraphicsResources} live resources" +
 			(GraphicsBreakdown.Length > 0 ? $" ({GraphicsBreakdown})" : "") +
 			$"  process {ProcessMb:0} MB" +
-			(RedemptionTargetsFreed > 0 ? $"  (Redemption targets freed {RedemptionTargetsFreed})" : ""));
+			(RedemptionTargetsFreed > 0 ? $"  (Redemption targets freed {RedemptionTargetsFreed})" : "") +
+			(OverhaulChunksFreed > 0 ? $"  (Overhaul chunks freed {OverhaulChunksFreed})" : ""));
 		lines.Add($"SOTS: {SOTSState}");
 
 		if (Baseline != null && Baseline != this) {
