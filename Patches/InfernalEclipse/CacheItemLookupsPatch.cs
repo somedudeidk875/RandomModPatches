@@ -34,6 +34,7 @@ internal sealed class CacheItemLookupsPatch : PerfPatch
 		private static readonly ConcurrentDictionary<(Mod, string), int> cache = new();
 
 		//the three mods the original resolves leniently where a missing name means "no match"
+		private static bool lenientModsResolved;
 		private static Mod bardHealer;
 		private static Mod thorium;
 		private static Mod thoriumRework;
@@ -48,10 +49,6 @@ internal sealed class CacheItemLookupsPatch : PerfPatch
 			var unsafeGetItem = HookHelper.Method(balance, "UnsafeGetItem", typeof(Mod), typeof(string), typeof(Item));
 			var findItem = HookHelper.Method(balance, "FindItem", typeof(Mod), typeof(string));
 
-			ModLoader.TryGetMod("CalamityBardHealer", out bardHealer);
-			ModLoader.TryGetMod("ThoriumMod", out thorium);
-			ModLoader.TryGetMod("ThoriumRework", out thoriumRework);
-
 			MonoModHooks.Add(getItem, OnGetItem);
 			MonoModHooks.Add(unsafeGetItem, OnUnsafeGetItem);
 			MonoModHooks.Add(findItem, OnFindItem);
@@ -60,6 +57,7 @@ internal sealed class CacheItemLookupsPatch : PerfPatch
 		public static void Reset()
 		{
 			cache.Clear();
+			lenientModsResolved = false;
 			bardHealer = null;
 			thorium = null;
 			thoriumRework = null;
@@ -95,6 +93,8 @@ internal sealed class CacheItemLookupsPatch : PerfPatch
 			if (cache.TryGetValue((mod, name), out int type))
 				return type;
 
+			ResolveLenientMods();
+
 			if (mod == bardHealer || mod == thorium || mod == thoriumRework)
 				type = mod.TryFind(name, out ModItem found) ? found.Type : -1;
 			else
@@ -102,6 +102,17 @@ internal sealed class CacheItemLookupsPatch : PerfPatch
 
 			cache[(mod, name)] = type;
 			return type;
+		}
+
+		private static void ResolveLenientMods()
+		{
+			if (lenientModsResolved)
+				return;
+
+			lenientModsResolved = true;
+			ModLoader.TryGetMod("CalamityBardHealer", out bardHealer);
+			ModLoader.TryGetMod("ThoriumMod", out thorium);
+			ModLoader.TryGetMod("ThoriumRework", out thoriumRework);
 		}
 
 		private static int LookupStrict(Mod mod, string name)

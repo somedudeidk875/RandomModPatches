@@ -33,7 +33,7 @@ internal sealed class SkipGorelessProjectileScansPatch : PerfPatch
 		private const string InteractionType = "TerrariaOverhaul.Common.Interaction.ProjectileGoreInteraction";
 		private const string GoreType = "TerrariaOverhaul.Common.BloodAndGore.OverhaulGore";
 
-		//the instance is typed as object because this mod cannot reference Overhaul's types.
+		//the instance is typed as object because this mod cant reference Overhaul's types
 		private delegate bool orig_PreAI(object self, Projectile projectile);
 
 		private static FieldInfo dontHitGore;
@@ -71,18 +71,17 @@ internal sealed class SkipGorelessProjectileScansPatch : PerfPatch
 			if (!Enabled || AnyOverhaulGore())
 				return orig(self, projectile);
 
-			//nothing in the loop can run, so all that is left of the original is this. setting the flag
-			//to false when it is already false is the same as leaving it alone, so the condition does
-			//not need to read it first.
+			//nothing in the loop can run so all that is left of the original is this 
+			//setting the flag to false when it is already false is the same as leaving it alone
+			//so the condition does not need to read it first
 			if (projectile.position != projectile.oldPosition && projectile.timeLeft % 3 == 0)
 				dontHitGore.SetValue(self, false);
 
 			return true;
 		}
 
-		//one pass over the gore array per tick, shared by every projectile in it. a plain Gore only
-		//becomes an OverhaulGore inside Gore.Update, so this answer cannot turn from false to true
-		//while projectiles are updating.
+		//one pass over the gore array per tick shared by every projectile in it 
+		//a plain Gore only becomes an OverhaulGore inside Gore.Update so this answer cant turn from false to true while projectiles are updating
 		private static bool AnyOverhaulGore()
 		{
 			if (scannedTick == Main.GameUpdateCount)

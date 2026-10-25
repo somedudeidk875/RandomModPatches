@@ -43,6 +43,7 @@ internal sealed class CacheRitualChecksPatch : PerfPatch
 		private static FieldInfo isSonHere;
 		private static FieldInfo downedMechBrainBoss;
 		private static int theSonType;
+		private static bool calamityChecked;
 		private static bool calamityLoaded;
 
 		private static uint scannedTick = uint.MaxValue;
@@ -65,7 +66,6 @@ internal sealed class CacheRitualChecksPatch : PerfPatch
 				throw new TypeLoadException($"{ModName}/TheSon was not found.");
 
 			theSonType = son.Type;
-			calamityLoaded = ModLoader.HasMod("CalamityMod");
 
 			var preAI = HookHelper.Method(global, "PreAI", typeof(NPC));
 			MonoModHooks.Add(preAI, OnPreAI);
@@ -76,6 +76,7 @@ internal sealed class CacheRitualChecksPatch : PerfPatch
 			isSonHere = null;
 			downedMechBrainBoss = null;
 			scannedTick = uint.MaxValue;
+			calamityChecked = false;
 		}
 
 		private static bool OnPreAI(orig_PreAI orig, object self, NPC npc)
@@ -86,7 +87,7 @@ internal sealed class CacheRitualChecksPatch : PerfPatch
 			if (npc.townNPC)
 				isSonHere.SetValue(self, SonAlive());
 
-			if (!calamityLoaded && IsRemovedWithoutCalamity(npc.type) && !MechBrainBossDowned()) {
+			if (!CalamityLoaded() && IsRemovedWithoutCalamity(npc.type) && !MechBrainBossDowned()) {
 				npc.active = false;
 				npc.life = 0;
 				return false;
@@ -109,6 +110,16 @@ internal sealed class CacheRitualChecksPatch : PerfPatch
 			}
 
 			return sonAlive;
+		}
+
+		private static bool CalamityLoaded()
+		{
+			if (!calamityChecked) {
+				calamityChecked = true;
+				calamityLoaded = ModLoader.HasMod("CalamityMod");
+			}
+
+			return calamityLoaded;
 		}
 
 		private static bool MechBrainBossDowned() => (bool)downedMechBrainBoss.GetValue(null);
