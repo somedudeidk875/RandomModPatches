@@ -558,7 +558,7 @@ internal static class PerfDiagnostics
 		report.GraphicsBreakdown = GraphicsResourceProbe.Breakdown;
 		report.ProcessMb = GraphicsResourceProbe.ProcessMb;
 		report.RedemptionTargetsFreed = FreeReplacedTargetsPatch.TargetsFreed;
-		report.OverhaulChunksFreed = FreeDistantChunkTexturesPatch.ChunksFreed;
+		report.OverhaulChunksFreed = FreeDistantChunksPatch.ChunksFreed;
 
 		report.EffectState = EffectStateProbe.Describe();
 		report.ActiveFilters = EffectStateProbe.ActiveFilters;

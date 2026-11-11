@@ -12,7 +12,7 @@ namespace SOTSPerfPatch.Patches.SOTS.World;
 //in the Sanctuary, SOTS samples 90 random tiles per tick (30 with its lag-reduction options) and spawns up to three steam gores per water-surface hit
 //this can keep the gore pool full
 
-internal sealed class ThrottleSanctuarySteamPatch : PerfPatch
+internal sealed class ThrottleSteamPatch : PerfPatch
 {
 	public override string Name => "Sanctuary steam throttle";
 

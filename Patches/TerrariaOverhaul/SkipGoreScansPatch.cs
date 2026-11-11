@@ -17,7 +17,7 @@ using Terraria.ModLoader;
 
 namespace SOTSPerfPatch.Patches.TerrariaOverhaul;
 
-internal sealed class SkipGorelessProjectileScansPatch : PerfPatch
+internal sealed class SkipGoreScansPatch : PerfPatch
 {
 	public override string Name => "Overhaul: skip gore scans when there is no gore";
 

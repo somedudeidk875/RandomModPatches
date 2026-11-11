@@ -13,7 +13,7 @@ namespace SOTSPerfPatch.Patches.SOTS.World;
 //   the water particle list
 //   the camera-shift projectile list which stores projectile slot numbers that mean nothing in another world
 
-internal sealed class ClearListsOnWorldExitPatch : PerfPatch
+internal sealed class ClearListsOnExitPatch : PerfPatch
 {
 	public override string Name => "World exit cleanup";
 

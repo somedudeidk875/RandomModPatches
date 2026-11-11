@@ -120,4 +120,12 @@ public class PerfPatchConfig : ModConfig
 
 	[DefaultValue(true)]
 	public bool SkipGorelessProjectileScans;
+
+	[Header("Macrocosm")]
+	[DefaultValue(true)]
+	public bool SkipEmptyMacrocosmDraws;
+
+	[Header("ThoriumRework")]
+	[DefaultValue(true)]
+	public bool CacheReworkTargetChecks;
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using SOTSPerfPatch.Patches.ContinentOfJourney;
 using SOTSPerfPatch.Patches.InfernalEclipse;
 using SOTSPerfPatch.Patches.InventoryVisualTweaks;
+using SOTSPerfPatch.Patches.Macrocosm;
 using SOTSPerfPatch.Patches.Noxus;
 using SOTSPerfPatch.Patches.SOTS.NPCs;
 using SOTSPerfPatch.Patches.SOTS.Combat;
@@ -11,6 +12,7 @@ using SOTSPerfPatch.Patches.SOTS.Rendering;
 using SOTSPerfPatch.Patches.SOTS.Tiles;
 using SOTSPerfPatch.Patches.SOTS.Trails;
 using SOTSPerfPatch.Patches.TerrariaOverhaul;
+using SOTSPerfPatch.Patches.ThoriumRework;
 using SOTSPerfPatch.Patches.UnCalamityModMusic;
 using SOTSPerfPatch.Patches.SOTS.World;
 using Terraria;
@@ -36,31 +38,31 @@ internal static class PatchRegistry
 		//trails
 		new ReuseTrailBuffersPatch(),
 		new FreeTrailEffectsPatch(),
-		new EndOrphanedSaberTrailsPatch(),
+		new EndOrphanedTrailsPatch(),
 
 		//NPCs
-		new SkipDebuffProjectileScanPatch(),
-		new SkipVineDrawScanPatch(),
+		new SkipDebuffScansPatch(),
+		new SkipVineScansPatch(),
 		new SkipEmptyCountersPatch(),
 
 		//combat
-		new SkipMeleeHitWrapperPatch(),
+		new SkipMeleeHitScansPatch(),
 
 		//world
-		new ThrottleSanctuarySteamPatch(),
-		new ClearListsOnWorldExitPatch(),
+		new ThrottleSteamPatch(),
+		new ClearListsOnExitPatch(),
 
 		//tiles
 		new FasterClosestPlayerPatch(),
 
 		//WOTG
-		new SkipEmptyGenesisGrassPatch(),
+		new SkipEmptyGrassPatch(),
 		new FasterNearestGrassPatch(),
 		new SkipIdleSnowScansPatch(),
 
 		//IEOR
 		new CacheItemLookupsPatch(),
-		new SkipIdleNPCPreAIPatch(),
+		new SkipIdleNPCsPatch(),
 
 		//MoR
 		new FreeReplacedTargetsPatch(),
@@ -70,14 +72,20 @@ internal static class PatchRegistry
 		new CacheRitualChecksPatch(),
 
 		//inventory visual tweaks
-		new SkipIdleParticleLayersPatch(),
+		new SkipIdleParticlesPatch(),
 
 		//VCMM
 		new SkipAbsentNPCScansPatch(),
 
 		//terraria overhaul
-		new FreeDistantChunkTexturesPatch(),
-		new SkipGorelessProjectileScansPatch(),
+		new FreeDistantChunksPatch(),
+		new SkipGoreScansPatch(),
+
+		//macrocosm
+		new SkipEmptyDrawsPatch(),
+
+		//thorium rework
+		new CacheTargetChecksPatch(),
 	};
 
 	public static void ApplyAll(Mod mod)
@@ -118,10 +126,12 @@ internal static class PatchRegistry
 		//drops the mod references the lookup cache hold so other mods' assemblies can unload
 		CacheItemLookupsPatch.Reset();
 		CacheRitualChecksPatch.Reset();
-		SkipIdleParticleLayersPatch.Reset();
+		SkipIdleParticlesPatch.Reset();
+		SkipEmptyDrawsPatch.Reset();
+		CacheTargetChecksPatch.Reset();
 		SkipAbsentNPCScansPatch.Reset();
-		FreeDistantChunkTexturesPatch.Reset();
-		SkipGorelessProjectileScansPatch.Reset();
+		FreeDistantChunksPatch.Reset();
+		SkipGoreScansPatch.Reset();
 		patches.Clear();
 	}
 }

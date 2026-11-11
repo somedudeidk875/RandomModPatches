@@ -12,7 +12,7 @@ namespace SOTSPerfPatch.Patches.SOTS.NPCs;
 
 //DebuffNPC.PostAI runs for every NPC every tick and loops over all 1000 projectile slots
 //this was like the third thing i did and i realized that there would prob be a lot more per tick/frame checks in SOTS lol
-internal sealed class SkipDebuffProjectileScanPatch : PerfPatch
+internal sealed class SkipDebuffScansPatch : PerfPatch
 {
 	public override string Name => "DebuffNPC projectile loop gate";
 

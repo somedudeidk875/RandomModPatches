@@ -10,7 +10,7 @@ internal static class SOTSStateProbe
 {
 	public static string Describe()
 	{
-		string fixes = $"shade textures freed {FreeDarknessTexturesPatch.TexturesFreed}, orphan trails ended {EndOrphanedSaberTrailsPatch.TrailsEnded}";
+		string fixes = $"shade textures freed {FreeDarknessTexturesPatch.TexturesFreed}, orphan trails ended {EndOrphanedTrailsPatch.TrailsEnded}";
 		try {
 			return Read() + " | " + fixes;
 		}

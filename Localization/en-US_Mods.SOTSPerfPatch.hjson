@@ -12,6 +12,8 @@ Configs: {
 			InventoryVisualTweaks: Inventory Items Visual Tweaks
 			VanillaCalamityMusic: Vanilla Calamity Mod Music
 			TerrariaOverhaul: Terraria Overhaul
+			Macrocosm: Macrocosm
+			ThoriumRework: Thorium Rework
 		}
 
 		EnableProfiler: {
@@ -270,6 +272,24 @@ Configs: {
 				Every projectile checks all 600 gore slots every tick, even with no gore in the world.
 				This checks once per tick for everyone instead. 
 				Helps while exploring.
+				'''
+		}
+
+		SkipEmptyMacrocosmDraws: {
+			Label: Skip Macrocosm's empty particle and rocket draws
+			Tooltip:
+				'''
+				Macrocosm stops and restarts the sprite batch about eight times a frame for particles and rockets, even with none of either around.
+				This skips those passes when there is nothing for them to draw.
+				'''
+		}
+
+		CacheReworkTargetChecks: {
+			Label: Cache which entities Thorium Rework's changes apply to
+			Tooltip:
+				'''
+				The mod looks up about forty item names in other mods every time an item is given its defaults, which includes every tooltip you hover.
+				The answer only depends on the item, so this remembers it.
 				'''
 		}
 	}

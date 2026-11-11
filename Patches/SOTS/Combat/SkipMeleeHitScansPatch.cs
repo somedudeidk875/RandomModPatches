@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 namespace SOTSPerfPatch.Patches.SOTS.Combat;
 
 //SOTS checks for Zombie Hand every call of PlayerItemCheck_MeleeHitNPCs and allocates a bool[200] (and does a lot more stuff)
-internal sealed class SkipMeleeHitWrapperPatch : PerfPatch
+internal sealed class SkipMeleeHitScansPatch : PerfPatch
 {
 	public override string Name => "Melee hit fast path";
 

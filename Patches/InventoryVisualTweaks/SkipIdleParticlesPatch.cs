@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Reflection;
 using Microsoft.Xna.Framework;
 using SOTSPerfPatch.Common.Configs;
@@ -6,33 +7,23 @@ using SOTSPerfPatch.Core;
 using Terraria;
 using Terraria.ModLoader;
 
-// Inventory Items Visual Tweaks ships a general particle framework (GuidaSharedCode.DrawHooks) that
-// detours fourteen of Terraria's draw methods so other code can draw at any point in the draw order.
-// Each detour does this, every frame:
-//
+//IIVT ships a general particle framework (GuidaSharedCode.DrawHooks) that detours fourteen of Terrarias draw methods so other code can draw at any point in the draw order
+//each detour does the following every frame:
 //   Main.spriteBatch.End();
-//   GetClip(out rectangle, out rasterizer);          // reads ScissorRectangle and RasterizerState
+//   GetClip(out rectangle, out rasterizer);          reads ScissorRectangle and RasterizerState
 //   Main.spriteBatch.Begin(...);
 //   OnDraw_SomeLayer?.Invoke(layer);
 //   Main.spriteBatch.End();
-//   SetClip(rectangle, rasterizer);                  // writes both back
-//
-// That adds up to roughly 28 End/Begin pairs and 28 scissor and rasterizer writes per frame. Every
-// End on a non-empty batch issues a draw call, and every scissor or rasterizer write is a pipeline
-// state change, so this is not free even with nothing to draw.
-//
-// None of it is gated. ParticleManager subscribes its Render method to all seventeen layers at load,
-// so the ?.Invoke is never null, and Render's own "particles.Count == 0" early-out only happens after
-// the batch work has already been done.
-//
-// This skips six of the fourteen when the particle system holds nothing at all. Those six are the ones
-// that begin and end their own batch and restore the clip without leaving a different batch behind for
-// the original method, so skipping them is the same as running them with nothing to draw. The other
-// eight end Terraria's batch and begin a replacement with their own parameters before calling the
-// original, which changes how vanilla draws, so they are left alone.
+//   SetClip(rectangle, rasterizer);                  writes both back
+//that adds up to roughly 28 end/begin pairs and 28 scissor and rasterizer writes per frame
+//every end on a non-empty batch issues a draw call, and every scissor or rasterizer write is a pipeline state change
+//so this is not free even with nothing to draw none of it is gated
+//ParticleManager puts its render method to all seventeen layers at load so the ?.Invoke is never null
+//this means that render's own particles.Count == 0 early-out only happens after the batch work has already been done
+
 namespace SOTSPerfPatch.Patches.InventoryVisualTweaks;
 
-internal sealed class SkipIdleParticleLayersPatch : PerfPatch
+internal sealed class SkipIdleParticlesPatch : PerfPatch
 {
 	public override string Name => "Visual Tweaks: skip idle particle layers";
 
@@ -59,7 +50,8 @@ internal sealed class SkipIdleParticleLayersPatch : PerfPatch
 		private delegate void orig_PostUpdateDusts(object self);
 
 		private static PropertyInfo managerInstance;
-		private static PropertyInfo particleCount;
+		private static FieldInfo particlesByLayer;
+		private static FieldInfo particlesToAdd;
 
 		private static bool Enabled => PerfPatchConfig.Instance?.SkipIdleParticleLayers ?? false;
 
@@ -71,8 +63,11 @@ internal sealed class SkipIdleParticleLayersPatch : PerfPatch
 			managerInstance = manager.GetProperty("Instance", BindingFlags.Static | BindingFlags.Public)
 				?? throw new MissingMemberException($"{ManagerType}.Instance was not found.");
 
-			particleCount = manager.GetProperty("ParticleCount", BindingFlags.Instance | BindingFlags.Public)
-				?? throw new MissingMemberException($"{ManagerType}.ParticleCount was not found.");
+			particlesByLayer = manager.GetField("particlesByLayer", BindingFlags.Instance | BindingFlags.Public)
+				?? throw new MissingFieldException($"{ManagerType}.particlesByLayer was not found.");
+
+			particlesToAdd = manager.GetField("particlesToAdd", BindingFlags.Instance | BindingFlags.NonPublic)
+				?? throw new MissingFieldException($"{ManagerType}.particlesToAdd was not found.");
 
 			var solidTiles = HookHelper.Method(drawHooks, "Draw_BeforeSolidTiles",
 				typeof(On_Main.orig_DoDraw_Tiles_Solid), typeof(Main));
@@ -100,19 +95,30 @@ internal sealed class SkipIdleParticleLayersPatch : PerfPatch
 		public static void Reset()
 		{
 			managerInstance = null;
-			particleCount = null;
+			particlesByLayer = null;
+			particlesToAdd = null;
 		}
 
-		// False only when the whole particle system is empty. ParticleCount covers every layer plus the
-		// pending queue, so zero means there is nothing to update, light or draw anywhere. Anything that
-		// cannot be read falls back to running the original.
+		//false only when the whole particle system is empty (nothing waiting in the queue and nothing in any layer)
+		//this reads the two collections directly rather than the manager's ParticleCount because AddParticle appends to particlesToAdd without recalculating that count
 		private static bool AnyParticles()
 		{
 			object instance = managerInstance.GetValue(null);
 			if (instance == null)
-				return false;
+				return true;
 
-			return (int)particleCount.GetValue(instance) > 0;
+			if (particlesToAdd.GetValue(instance) is ICollection pending && pending.Count > 0)
+				return true;
+
+			if (particlesByLayer.GetValue(instance) is not IDictionary byLayer)
+				return true;
+
+			foreach (DictionaryEntry entry in byLayer) {
+				if (entry.Value is ICollection layer && layer.Count > 0)
+					return true;
+			}
+
+			return false;
 		}
 
 		private static void OnSolidTiles(orig_SolidTiles handler, object self, On_Main.orig_DoDraw_Tiles_Solid orig, Main main)
@@ -163,11 +169,6 @@ internal sealed class SkipIdleParticleLayersPatch : PerfPatch
 				orig(main, gameTime);
 		}
 
-		// PostUpdateDusts runs UpdateParticles and UpdateParticleLighting every tick. The lighting pass
-		// walks GetAllParticles(), which is a SelectMany, and UpdateParticles finishes by recalculating
-		// the count with particlesByLayer.Values.Sum(...). Both allocate LINQ iterators every tick even
-		// with nothing alive. ParticleCount of zero means the layers and the pending queue are both
-		// empty, so there is nothing to flush, update or light.
 		private static void OnPostUpdateDusts(orig_PostUpdateDusts orig, object self)
 		{
 			if (!Enabled || AnyParticles())

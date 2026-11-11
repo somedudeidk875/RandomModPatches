@@ -13,7 +13,7 @@ namespace SOTSPerfPatch.Patches.SOTS.NPCs;
 //DebuffNPC.PreDraw loops over projectiles for every NPC every frame looking for FloweringBud and EvilGrowth vines
 //it uses Main.maxNPCs (200) as the bound so it only ever sees the first 200 projectile slots which i think is a bug???
 
-internal sealed class SkipVineDrawScanPatch : PerfPatch
+internal sealed class SkipVineScansPatch : PerfPatch
 {
 	public override string Name => "DebuffNPC vine draw gate";
 

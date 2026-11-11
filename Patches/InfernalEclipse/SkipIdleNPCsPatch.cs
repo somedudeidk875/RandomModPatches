@@ -14,7 +14,7 @@ using Terraria.ModLoader;
 
 namespace SOTSPerfPatch.Patches.InfernalEclipse;
 
-internal sealed class SkipIdleNPCPreAIPatch : PerfPatch
+internal sealed class SkipIdleNPCsPatch : PerfPatch
 {
 	public override string Name => "Infernal Eclipse: skip idle NPC pre-AI checks";
 

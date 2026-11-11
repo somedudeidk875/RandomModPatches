@@ -13,10 +13,10 @@ public class CleanupSystem : ModSystem
 	public override void PreUpdateEntities()
 	{
 		Safe(FreeDarknessTexturesPatch.OnUpdate);
-		Safe(FreeDistantChunkTexturesPatch.OnUpdate);
+		Safe(FreeDistantChunksPatch.OnUpdate);
 	}
 
-	public override void OnWorldUnload() => Safe(ClearListsOnWorldExitPatch.Run);
+	public override void OnWorldUnload() => Safe(ClearListsOnExitPatch.Run);
 
 	public override void OnWorldLoad() => Safe(NoxusWorldLoad);
 

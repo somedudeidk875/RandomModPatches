@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace SOTSPerfPatch.Patches.Noxus;
 
-internal sealed class SkipEmptyGenesisGrassPatch : PerfPatch
+internal sealed class SkipEmptyGrassPatch : PerfPatch
 {
 	public override string Name => "Genesis grass: skip when none on screen";
 

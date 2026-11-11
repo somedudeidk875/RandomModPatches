@@ -5,7 +5,7 @@ using SOTSPerfPatch.Core;
 using Terraria;
 using Terraria.ModLoader;
 
-// MoR's RenderTargetManager.UpdateRenderTargets replaces six screen-sized render targets without disposing the ones it is replacing (another cool explanation)
+//MoR's RenderTargetManager.UpdateRenderTargets replaces six screen-sized render targets without disposing the ones it is replacing (another cool explanation)
 //   BasicLayer.Target = new RenderTarget2D(..., Main.screenWidth, Main.screenHeight);
 //   BasicLayer.EffectTarget = new RenderTarget2D(...);
 //   ... four more ...

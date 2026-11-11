@@ -10,7 +10,7 @@ namespace SOTSPerfPatch.Patches.SOTS.Trails;
 //a Polaris saber trail only ends when its owner (a PolarisWeaponData) becomes inactive but PolarisWeaponData marks itself active on every update and nothing ever marks it inactive
 //if Polaris dies or despawns with the saber out the trail keeps updating and drawing forever and because SOTS's trail list is global it even survives leaving the world
 
-internal sealed class EndOrphanedSaberTrailsPatch : PerfPatch
+internal sealed class EndOrphanedTrailsPatch : PerfPatch
 {
 	public override string Name => "Polaris orphaned trail fix";
 

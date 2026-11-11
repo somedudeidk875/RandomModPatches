@@ -20,7 +20,7 @@ using Terraria.ModLoader;
 
 namespace SOTSPerfPatch.Patches.TerrariaOverhaul;
 
-internal sealed class FreeDistantChunkTexturesPatch : PerfPatch
+internal sealed class FreeDistantChunksPatch : PerfPatch
 {
 	public override string Name => "Overhaul: free distant chunk textures";
 
