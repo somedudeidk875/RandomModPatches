@@ -37,7 +37,7 @@ internal static class RenderLoopProfiler
 		}
 	}
 
-	//wraps every subscriber and re-wraps when the subscriber list changes
+	//wraps every subscriber and rewraps when the subscriber list changes
 	public static void Wrap()
 	{
 		if (eventField == null)
@@ -100,7 +100,7 @@ internal static class RenderLoopProfiler
 
 	public static void Reset() => subscriberTicks.Clear();
 
-	//most expensive render-target subscribers this second in ms per frame.
+	//most expensive render-target subscribers this second in ms per frame
 	public static List<Report.ModCost> TopSubscribers(int draws)
 	{
 		var list = new List<Report.ModCost>();
@@ -156,7 +156,7 @@ internal static class RenderLoopProfiler
 		private readonly Action inner;
 		private readonly string name;
 
-		//the delegate this replaced, kept so the original list can be restored
+		//the delegate this replaced (kept so the original list can be restored)
 		public Delegate Original { get; }
 
 		public TimedSubscriber(Delegate original, Action inner, string name)

@@ -12,18 +12,18 @@ public class CleanupSystem : ModSystem
 {
 	public override void PreUpdateEntities()
 	{
-		Safe(FreeDarknessTexturesPatch.OnUpdate);
-		Safe(FreeDistantChunksPatch.OnUpdate);
+		Safe(FreeDarknessTextures.OnUpdate);
+		Safe(FreeDistantChunks.OnUpdate);
 	}
 
-	public override void OnWorldUnload() => Safe(ClearListsOnExitPatch.Run);
+	public override void OnWorldUnload() => Safe(ClearListsOnExit.Run);
 
 	public override void OnWorldLoad() => Safe(NoxusWorldLoad);
 
 	private static void NoxusWorldLoad()
 	{
 		if (ModLoader.HasMod("NoxusBoss"))
-			SkipIdleSnowScansPatch.OnWorldLoad();
+			SkipIdleSnowScans.OnWorldLoad();
 	}
 
 	private void Safe(Action action)

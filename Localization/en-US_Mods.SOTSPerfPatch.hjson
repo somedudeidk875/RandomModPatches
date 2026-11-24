@@ -14,6 +14,9 @@ Configs: {
 			TerrariaOverhaul: Terraria Overhaul
 			Macrocosm: Macrocosm
 			ThoriumRework: Thorium Rework
+			CalamityHunt: Hunt of the Old God
+			Infernum: Infernum Mode
+			Luminance: Luminance
 		}
 
 		EnableProfiler: {
@@ -155,6 +158,33 @@ Configs: {
 			Tooltip: Terraria allows 600 gores at once.
 		}
 
+		CacheBossParticleMasks: {
+			Label: Fix Pharaoh's Curse's particle spawning
+			Tooltip:
+				'''
+				Every part of the curse fight picks its foam spawn points by copying a whole sprite back from the graphics card, ten to twenty times a tick. 
+				The sprites never change, so this reads each one once and keeps it.
+				'''
+		}
+
+		SkipEmptyFoamDraws: {
+			Label: Skip empty curse foam draws
+			Tooltip:
+				'''
+				The curse foam draw runs for every player every frame and checks all thousand projectile slots first, even for players who have no foam. 
+				This skips it when there is nothing to draw.
+				'''
+		}
+
+		SkipOffscreenConduitAuras: {
+			Label: Skip off screen conduit auras
+			Tooltip:
+				'''
+				Each conduit runs a shader pass and restarts the sprite batch twice every frame, from anywhere in the world. 
+				This skips the ones whose glow is off screen.
+				'''
+		}
+
 		SkipEmptyGenesisGrass: {
 			Label: Skip Genesis grass rendering when there is none on screen
 			Tooltip:
@@ -290,6 +320,51 @@ Configs: {
 				'''
 				The mod looks up about forty item names in other mods every time an item is given its defaults, which includes every tooltip you hover.
 				The answer only depends on the item, so this remembers it.
+				'''
+		}
+
+		SkipIdleTileHighlight: {
+			Label: Skip the idle tile outline pass
+			Tooltip:
+				'''
+				The glow around tiles during a Stellar Geliath attack refills its texture every frame, which redraws every player and checks about nine thousand tiles. 
+				The mod already hides the result when the attack is not running, so this skips the refill too.
+				'''
+		}
+
+		SkipEmptyHuntDraws: {
+			Label: Skip empty full screen passes
+			Tooltip:
+				'''
+				Certain effects each clear and shade a full screen texture every frame, even with no boss, projectile or particle anywhere near. 
+				This skips those passes when there is nothing for them to draw.
+				'''
+		}
+
+		CacheMetaballMasks: {
+			Label: Fix the metaball texture readback
+			Tooltip:
+				'''
+				Certain attacks from some bosses each copy a sprite back from the graphics card about every other tick to decide where to put their lava. 
+				The sprites never change, so this reads each one once and keeps it.
+				'''
+		}
+
+		FasterTrailPoints: {
+			Label: Faster trail point building
+			Tooltip:
+				'''
+				Every trail in the mod walks its own point list four times per point, because it is handed something it cannot index. 
+				This gives it a real list instead, which makes the work grow with the trail instead of with its square.
+				'''
+		}
+
+		SkipEmptyPixelationPasses: {
+			Label: Skip empty pixelation passes
+			Tooltip:
+				'''
+				Luminance clears four half size textures and blits all four over the screen every frame, even with nothing pixelated anywhere in the world. 
+				This skips the layers that have nothing in them, which also lets Luminance's own cleanup reclaim the textures.
 				'''
 		}
 	}

@@ -1,6 +1,6 @@
 displayName = Random Mod Patches
 author = SOTSPerfPatch contributors
-version = 0.6
-weakReferences = SOTS, NoxusBoss, InfernalEclipseAPI, Redemption, ContinentOfJourney, InventoryVisualTweaks, UnCalamityModMusic, TerrariaOverhaul, Macrocosm, ThoriumRework
+version = 1.0
+weakReferences = SOTS, NoxusBoss, InfernalEclipseAPI, Redemption, ContinentOfJourney, InventoryVisualTweaks, UnCalamityModMusic, TerrariaOverhaul, Macrocosm, ThoriumRework, CalamityHunt, InfernumMode, Luminance
 side = NoSync
 buildIgnore = lib/*, *.md, Properties/*

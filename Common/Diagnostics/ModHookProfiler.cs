@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace SOTSPerfPatch.Common.Diagnostics;
 
-//times the per-tick hooks that every loaded mod implements, so the report can say which mod is spending the time 
+//times the per-tick hooks that every loaded mod implements so the report can say which mod is spending the time 
 internal static class ModHookProfiler
 {
 	//i controlled-f pre and post in the tmodloader docsd and just went with what looked right

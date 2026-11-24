@@ -74,6 +74,15 @@ public class PerfPatchConfig : ModConfig
 	[Range(50, 600)]
 	public int SteamGoreCap;
 
+	[DefaultValue(true)]
+	public bool CacheBossParticleMasks;
+
+	[DefaultValue(true)]
+	public bool SkipEmptyFoamDraws;
+
+	[DefaultValue(true)]
+	public bool SkipOffscreenConduitAuras;
+
 	[Header("WrathOfTheGods")]
 	[DefaultValue(true)]
 	public bool SkipEmptyGenesisGrass;
@@ -128,4 +137,22 @@ public class PerfPatchConfig : ModConfig
 	[Header("ThoriumRework")]
 	[DefaultValue(true)]
 	public bool CacheReworkTargetChecks;
+
+	[Header("CalamityHunt")]
+	[DefaultValue(true)]
+	public bool SkipIdleTileHighlight;
+
+	[DefaultValue(true)]
+	public bool SkipEmptyHuntDraws;
+
+	[Header("Infernum")]
+	[DefaultValue(true)]
+	public bool CacheMetaballMasks;
+
+	[DefaultValue(true)]
+	public bool FasterTrailPoints;
+
+	[Header("Luminance")]
+	[DefaultValue(true)]
+	public bool SkipEmptyPixelationPasses;
 }

@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using SOTSPerfPatch.Patches.CalamityHunt;
 using SOTSPerfPatch.Patches.ContinentOfJourney;
 using SOTSPerfPatch.Patches.InfernalEclipse;
+using SOTSPerfPatch.Patches.Infernum;
+using SOTSPerfPatch.Patches.Luminance;
 using SOTSPerfPatch.Patches.InventoryVisualTweaks;
 using SOTSPerfPatch.Patches.Macrocosm;
 using SOTSPerfPatch.Patches.Noxus;
@@ -30,62 +33,76 @@ internal static class PatchRegistry
 	private static PerfPatch[] CreatePatches() => new PerfPatch[] {
 		//SOTS
 		//rendering
-		new SkipUnusedWaterLayersPatch(),
-		new DrawNPCEffectsOncePatch(),
-		new FreeResizedTargetsPatch(),
-		new FreeDarknessTexturesPatch(),
+		new SkipUnusedWaterLayers(),
+		new DrawNPCEffectsOnce(),
+		new FreeResizedTargets(),
+		new FreeDarknessTextures(),
+		new SkipEmptyFoamDraws(),
 
 		//trails
-		new ReuseTrailBuffersPatch(),
-		new FreeTrailEffectsPatch(),
-		new EndOrphanedTrailsPatch(),
+		new ReuseTrailBuffers(),
+		new FreeTrailEffects(),
+		new EndOrphanedTrails(),
 
 		//NPCs
-		new SkipDebuffScansPatch(),
-		new SkipVineScansPatch(),
-		new SkipEmptyCountersPatch(),
+		new SkipDebuffScans(),
+		new SkipVineScans(),
+		new SkipEmptyCounters(),
+		new CacheParticleMasks(),
 
 		//combat
-		new SkipMeleeHitScansPatch(),
+		new SkipMeleeHitScans(),
 
 		//world
-		new ThrottleSteamPatch(),
-		new ClearListsOnExitPatch(),
+		new ThrottleSteam(),
+		new ClearListsOnExit(),
 
 		//tiles
-		new FasterClosestPlayerPatch(),
+		new FasterClosestPlayer(),
+		new SkipOffscreenAuras(),
 
 		//WOTG
-		new SkipEmptyGrassPatch(),
-		new FasterNearestGrassPatch(),
-		new SkipIdleSnowScansPatch(),
+		new SkipEmptyGrass(),
+		new FasterNearestGrass(),
+		new SkipIdleSnowScans(),
 
 		//IEOR
-		new CacheItemLookupsPatch(),
-		new SkipIdleNPCsPatch(),
+		new CacheItemLookups(),
+		new SkipIdleNPCs(),
 
 		//MoR
-		new FreeReplacedTargetsPatch(),
-		new SkipIdleEffectLayersPatch(),
+		new FreeReplacedTargets(),
+		new SkipIdleEffectLayers(),
 
 		//HWJ
-		new CacheRitualChecksPatch(),
+		new CacheRitualChecks(),
 
 		//inventory visual tweaks
-		new SkipIdleParticlesPatch(),
+		new SkipIdleParticles(),
 
 		//VCMM
-		new SkipAbsentNPCScansPatch(),
+		new SkipAbsentNPCScans(),
 
 		//terraria overhaul
-		new FreeDistantChunksPatch(),
-		new SkipGoreScansPatch(),
+		new FreeDistantChunks(),
+		new SkipGoreScans(),
 
 		//macrocosm
-		new SkipEmptyDrawsPatch(),
+		new SkipEmptyDraws(),
 
 		//thorium rework
-		new CacheTargetChecksPatch(),
+		new CacheTargetChecks(),
+
+		//hunt of the old god
+		new SkipIdleTileHighlight(),
+		new SkipEmptyScreenPasses(),
+
+		//infernum
+		new CacheMetaballMasks(),
+		new FasterTrailPoints(),
+
+		//luminance
+		new SkipEmptyPixelationPasses(),
 	};
 
 	public static void ApplyAll(Mod mod)
@@ -124,14 +141,20 @@ internal static class PatchRegistry
 	public static void Clear()
 	{
 		//drops the mod references the lookup cache hold so other mods' assemblies can unload
-		CacheItemLookupsPatch.Reset();
-		CacheRitualChecksPatch.Reset();
-		SkipIdleParticlesPatch.Reset();
-		SkipEmptyDrawsPatch.Reset();
-		CacheTargetChecksPatch.Reset();
-		SkipAbsentNPCScansPatch.Reset();
-		FreeDistantChunksPatch.Reset();
-		SkipGoreScansPatch.Reset();
+		CacheItemLookups.Reset();
+		CacheRitualChecks.Reset();
+		SkipIdleParticles.Reset();
+		SkipEmptyDraws.Reset();
+		CacheTargetChecks.Reset();
+		SkipAbsentNPCScans.Reset();
+		FreeDistantChunks.Reset();
+		SkipGoreScans.Reset();
+		SkipIdleTileHighlight.Reset();
+		SkipEmptyScreenPasses.Reset();
+		CacheParticleMasks.Reset();
+		SkipEmptyFoamDraws.Reset();
+		CacheMetaballMasks.Reset();
+		SkipEmptyPixelationPasses.Reset();
 		patches.Clear();
 	}
 }
